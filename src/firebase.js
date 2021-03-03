@@ -1,12 +1,13 @@
 import firebase from 'firebase';
 import { firebaseConfig } from './config/firebase.config';
-import { v1 as uuid } from 'uuid';
 
 firebase.initializeApp(firebaseConfig);
 const FirebaseDatabase = firebase.database();
 
 export const sendRegistrationToServer = (token) => {
-  const reference = FirebaseDatabase.ref(`/users/${uuid()}`);
+  const tokenSplit = token.split(':');
+  const userTokenKey = tokenSplit[0];
+  const reference = FirebaseDatabase.ref(`/users/${userTokenKey}`);
   reference.set({ token });
 };
 
